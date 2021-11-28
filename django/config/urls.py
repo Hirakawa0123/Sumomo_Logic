@@ -19,6 +19,7 @@ from base import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("",views.IndexView.as_view(),name="index"),
+    path("",views.PdfListView.as_view(),name="list"),
     path("form/",views.MyCreateView.as_view()),
+    path('items/<int:pk>/',views.PdfDetailView.as_view()), 
 ]
