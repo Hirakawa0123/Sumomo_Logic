@@ -21,6 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("",views.PdfListView.as_view(),name="list"),
     path("form/",views.MyCreateView.as_view(),name="form"),
-    path("index/",views.Index.as_view(),name="index"),
-    path('items/<int:pk>/',views.PdfDetailView.as_view()), 
+    path("count/",views.CountView.as_view(),name="count"),
+    path('items/<int:pk>/',views.PdfDetailView.as_view()),
+    path('index/', views.TestView.as_view(), name='index'),
 ]
