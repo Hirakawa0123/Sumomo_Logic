@@ -1,3 +1,6 @@
+{% extends 'base.html' %}
+
+{% block main %}
 <ul>
   {% for object in object_list %}
   <a href="items/{{object.pk}}/">
@@ -5,4 +8,4 @@
   <li>{{ object.pk }}</li>
   {% endfor %}
 </ul>
-  <a href="/items/1/">
+{% endblock %}
