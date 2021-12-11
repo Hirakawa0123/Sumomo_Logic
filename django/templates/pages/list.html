@@ -13,7 +13,7 @@
   <tbody>
     {% for object in object_list %}
     <tr>
-      <td><a href="items/{{object.pk}}/" class="text-body text-decoration-none"></a></td>
+      <td><a href="items/{{object.pk}}/" class="text-body text-decoration-none">No.{{ page_obj.start_index|add:forloop.counter0 }}</a></td>
       <td><a href="items/{{object.pk}}/" class="text-body text-decoration-none">{{ object }}</a></td>
       <td><a href="items/{{object.pk}}/" class="text-body text-decoration-none">コンテンツ</a></td>
       <td><a href="items/{{object.pk}}/" class="text-body text-decoration-none">{{ object.upload_at }}</a></td>
@@ -22,6 +22,10 @@
   </tbody>
 </table>
 </ul>
-
+<div class="row m-5">
+  <div class="col-12 my-3">
+    {% include 'snippets/pagination.html' %}
+  </div>
+</div>
 
 {% endblock %}

@@ -58,6 +58,7 @@ class TestView(FormView):
 
 class PdfListView(ListView):
     model = Pdf 
+    paginate_by = 10
     template_name = "pages/list.html"
 
 class PdfDetailView(DetailView):
