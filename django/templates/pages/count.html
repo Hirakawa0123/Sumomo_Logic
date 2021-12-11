@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block main %}
+{% comment %} {% for error in form.non_field_errors %}
+<div class="alert alert-danger">
+  {{ error }}
+</div>
+{% endfor %} {% endcomment %}
+
+<div class="container" style="padding:5px 0">
+    <form method="post">
+      {% csrf_token %}
+      {% for field in form %}
+      <div class="form-group">
+        <label class="control-label">
+          {{ field.label }}<br>
+          {{ field }}
+        </label>
+      </div> 
+      {% endfor %}
+      <div class="container" style="padding:20px 0">
+        <input type="submit" value="カウント" class="btn btn-info" />
+      </div>
+    </form>
+  </div>
+{% endblock %}
