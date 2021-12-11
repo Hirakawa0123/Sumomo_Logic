@@ -6,7 +6,7 @@
 </div>
 {% endfor %} {% endcomment %}
 
-<div class="container" style="padding:100px 0">
+<div class="d-flex justify-content-around" style="padding:100px 0">
     <form method="post">
       {% csrf_token %}
       {% for field in form %}
@@ -17,7 +17,7 @@
         </label>
       </div> 
       {% endfor %}
-      <div class="container" style="padding:20px 0">
+      <div class="d-flex justify-content-start" style="padding:20px 0">
         <input type="submit" value="カウント" class="btn btn-info" />
       </div>
     </form>
