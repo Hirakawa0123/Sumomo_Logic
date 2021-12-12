@@ -21,7 +21,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("",views.PdfListView.as_view(),name="list"),
     path("form/",views.MyCreateView.as_view(),name="form"),
-    path("count/",views.CountView.as_view(),name="count"),
+    path("upload/",views.UploadView.as_view(),name="upload"),
     path('items/<int:pk>/',views.PdfDetailView.as_view()),
     path('items/<int:pk>/delete/',views.PdfDeleteView.as_view(),name="delete"),
+    path('items/<int:pk>/update/',views.PdfUpdateView.as_view(),name="update"),
 ]

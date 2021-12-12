@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView,CreateView,ListView,DetailView,View,DeleteView
+from django.views.generic import TemplateView,CreateView,ListView,DetailView,View,DeleteView,UpdateView
 from django.urls import reverse_lazy
 from django.views.generic.edit import FormView
 from django.contrib import messages
@@ -15,9 +15,9 @@ class MyCreateView(CreateView):
     success_url = reverse_lazy("list")
     template_name = "pages/form.html"
 
-class CountView(FormView):
+class UploadView(FormView):
     form_class = TextForm
-    template_name = "pages/count.html"
+    template_name = "pages/upload.html"
     success_url = '/'
 
     def form_valid(self, form):
@@ -37,3 +37,9 @@ class PdfDeleteView(DeleteView):
     model = Pdf
     success_url = reverse_lazy('list')
     template_name = "pages/delete.html"
+
+class PdfUpdateView(UpdateView):
+    model = Pdf
+    fields = ["file_name","content"]
+    success_url = reverse_lazy('list')
+    template_name = "pages/update.html"

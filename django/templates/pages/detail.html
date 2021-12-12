@@ -3,6 +3,7 @@
 {% block main %}
 
 <a href="{% url 'delete' object.pk %}">削除</a>
+<a href="{% url 'update' object.pk %}">更新</a>
 
 <h1>{{object.file_name}}</h1>
 <a>{{object.upload_at}}</a><br>

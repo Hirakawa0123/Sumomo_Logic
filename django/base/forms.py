@@ -9,8 +9,8 @@ class MyModelForm(forms.ModelForm):
         fields = ("file_name","content",)
 
 class TextForm(forms.Form):
-    file_name = forms.CharField(label="ファイル名:")
-    content = forms.CharField(label="テキスト:",widget=forms.Textarea)
+    file_name = forms.CharField(label="ファイル名")
+    content = forms.CharField(label="テキスト",widget=forms.Textarea)
     # limit = forms.IntegerField(label="表示件数:")
     # save_or_not = forms.IntegerField(label="save or not save:")
 
