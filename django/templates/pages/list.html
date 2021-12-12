@@ -4,7 +4,7 @@
 <table class="table">
   <thead>
     <tr>
-      <th scope="col"></th>
+      <th scope="col">No.</th>
       <th scope="col">ファイル名</th>
       <th scope="col">コンテンツ</th>
       <th scope="col">アップロード</th>
@@ -13,7 +13,7 @@
   <tbody>
     {% for object in object_list %}
     <tr>
-      <td><a href="items/{{object.pk}}/" class="text-body text-decoration-none">No.{{ page_obj.start_index|add:forloop.counter0 }}</a></td>
+      <td><a href="items/{{object.pk}}/" class="text-body text-decoration-none">{{ page_obj.start_index|add:forloop.counter0 }}</a></td>
       <td><a href="items/{{object.pk}}/" class="text-body text-decoration-none">{{ object }}</a></td>
       <td><a href="items/{{object.pk}}/" class="text-body text-decoration-none">コンテンツ</a></td>
       <td><a href="items/{{object.pk}}/" class="text-body text-decoration-none">{{ object.upload_at }}</a></td>

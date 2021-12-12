@@ -5,9 +5,9 @@
   {{ error }}
 </div>
 {% endfor %} {% endcomment %}
-
 <div class="d-flex justify-content-around" style="padding:100px 0">
     <form method="post">
+      <h1>Upload</h1>
       {% csrf_token %}
       {% for field in form %}
       <div class="form-group">
@@ -17,8 +17,8 @@
         </label>
       </div> 
       {% endfor %}
-      <div class="d-flex justify-content-start" style="padding:20px 0">
-        <input type="submit" value="カウント" class="btn btn-info" />
+      <div class="d-flex justify-content-end" style="padding:20px 0">
+        <input type="submit" value="保存" class="btn btn-info" />
       </div>
     </form>
   </div>

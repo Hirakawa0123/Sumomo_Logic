@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 
 {% block main %}
-<a>name:{{object.file_name}}</a><br>
-<a>upload:{{object.upload_at}}</a><br>
-<a>content:</a><a>{{object.content}}</a>
+<h1>{{object.file_name}}</h1>
+<a>{{object.upload_at}}</a><br>
+<div class="container border rounded-lg" style="padding: 10px;"> 
+{% comment %} <div class="container" style="padding: 100px; > {% endcomment %}
+    <a>{{object.content}}</a>
+</div>
 {% endblock %}
