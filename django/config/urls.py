@@ -20,7 +20,6 @@ from base import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("",views.PdfListView.as_view(),name="list"),
-    path("form/",views.MyCreateView.as_view(),name="form"),
     path("upload/",views.UploadView.as_view(),name="upload"),
     path('items/<int:pk>/',views.PdfDetailView.as_view()),
     path('items/<int:pk>/delete/',views.PdfDeleteView.as_view(),name="delete"),

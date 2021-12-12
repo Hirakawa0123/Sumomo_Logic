@@ -7,13 +7,8 @@ from django.shortcuts import render
 import collections
 import re
 
-from base.forms import MyModelForm,TextForm,TestForm
-from base.models import Pdf,Post
-
-class MyCreateView(CreateView):
-    form_class = MyModelForm
-    success_url = reverse_lazy("list")
-    template_name = "pages/form.html"
+from base.forms import TextForm
+from base.models import Pdf
 
 class UploadView(FormView):
     form_class = TextForm
@@ -39,7 +34,7 @@ class PdfDeleteView(DeleteView):
     template_name = "pages/delete.html"
 
 class PdfUpdateView(UpdateView):
-    model = Pdf
-    fields = ["file_name","content"]
-    success_url = reverse_lazy('list')
     template_name = "pages/update.html"
+    model = Pdf
+    success_url = reverse_lazy('list')
+    form_class = TextForm
