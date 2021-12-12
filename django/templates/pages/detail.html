@@ -2,13 +2,19 @@
 
 {% block main %}
 
-<a href="{% url 'delete' object.pk %}">削除</a>
-<a href="{% url 'update' object.pk %}">更新</a>
-
-<h1>{{object.file_name}}</h1>
-<a>{{object.upload_at}}</a><br>
-<div class="container border rounded-lg" style="padding: 10px;"> 
-{% comment %} <div class="container" style="padding: 100px; > {% endcomment %}
-    <a>{{object.content}}</a>
-</div>
+<div class="d-flex justify-content-around" style="padding:100px 0">
+    <div>
+    <h1>{{object.file_name}}</h1>
+        <label class="control-label">
+            <a>{{object.upload_at}}</a>
+            <div>
+                <textarea id="story" name="story" rows="15" cols="100">{{object.content}}</textarea>
+            </div>
+        </label>
+      <div class="d-flex justify-content-end" style="padding:20px 0">
+        <a class="btn btn-info" href="{% url 'delete' object.pk %}" role="button">削除</a>
+        <a class="btn btn-info" href="{% url 'update' object.pk %}" role="button">更新</a>
+      </div>
+    </div>
+  </div>
 {% endblock %}
