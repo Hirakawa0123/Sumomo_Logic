@@ -24,6 +24,6 @@ urlpatterns = [
     path('items/<int:pk>/',views.PdfDetailView.as_view()),
     path('items/<int:pk>/delete/',views.PdfDeleteView.as_view(),name="delete"),
     path('items/<int:pk>/update/',views.PdfUpdateView.as_view(),name="update"),
-    path('upload_files/', views.file_upload, name='file_upload'),
+    path('file_upload/', views.file_upload, name='file_upload'),
     path('success/url/',views.success),
 ]

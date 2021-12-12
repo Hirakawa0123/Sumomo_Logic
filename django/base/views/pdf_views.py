@@ -9,9 +9,12 @@ from django.http import HttpResponseRedirect
 import collections
 import re
 import sys
+import os
 
 from base.forms import TextForm,UploadFileForm
 from base.models import Pdf
+
+from tika import parser
 
 class UploadView(FormView):
     form_class = TextForm
@@ -50,9 +53,11 @@ def file_upload(request):
         if form.is_valid():
             sys.stderr.write("*** file_upload *** aaa ***\n")
             handle_uploaded_file(request.FILES['file'])
+            Orc(request.FILES['file'])
             file_obj = request.FILES['file']
             sys.stderr.write(file_obj.name + "\n")
-            return HttpResponseRedirect('/success/url/')
+            return HttpResponseRedirect('/')
+            # return HttpResponseRedirect('/success/url/')
     else:
         form = UploadFileForm()
     return render(request, 'pages/upload_files.html', {'form': form})
@@ -76,3 +81,16 @@ def success(request):
     str_out += "成功<p />"
     return HttpResponse(str_out)
 # ------------------------------------------------------------------
+
+def Orc(file_obj):
+    file_path = 'media/documents/' + file_obj.name
+    file_name =  os.path.basename(file_obj.name).split('.', 1)[0]
+    extension = os.path.basename(file_obj.name).split('.', 1)[1]
+    file_data = parser.from_file(file_path)
+    text = file_data["content"]
+
+    with open('media/documents/' + file_name + ".txt","w") as f:
+        f.write(text)
+    
+    os.remove('media/documents/' + file_name + "." + extension)
+    
