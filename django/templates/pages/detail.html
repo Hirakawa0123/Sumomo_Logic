@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
 {% block main %}
+
+<a href="{% url 'delete' object.pk %}">削除</a>
+
 <h1>{{object.file_name}}</h1>
 <a>{{object.upload_at}}</a><br>
 <div class="container border rounded-lg" style="padding: 10px;"> 

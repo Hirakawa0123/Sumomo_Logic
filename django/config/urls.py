@@ -23,5 +23,5 @@ urlpatterns = [
     path("form/",views.MyCreateView.as_view(),name="form"),
     path("count/",views.CountView.as_view(),name="count"),
     path('items/<int:pk>/',views.PdfDetailView.as_view()),
-    path('index/', views.TestView.as_view(), name='index'),
+    path('items/<int:pk>/delete/',views.PdfDeleteView.as_view(),name="delete"),
 ]
