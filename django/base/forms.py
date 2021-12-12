@@ -34,3 +34,7 @@ class TestForm(forms.Form):
         data = self.cleaned_data
         post = Post(title=data['title'], comment=data['comment'])
         post.save()
+
+class UploadFileForm(forms.Form):
+    title = forms.CharField(max_length=50)
+    file = forms.FileField()
