@@ -15,23 +15,21 @@ pip==21.3.1
 git clone https://github.com/Hirakawa0123/Sumomo_Logic.git
 ```
 
-## Setup
-※現在エラーが発生してセットアップできない状態です。
+## Folder Structure
 
-※Pythonがインストール済みであることを前提に記載しております。
-
-
-```python
-cd Sumomo_Logic/
-
-source setup.sh
-
-python manage.py makemigrations
-
-python manage.py migrate
-
-python manage.py runserver
 ```
-## Usage
+.
+├── README.md
+├── config
+├── django
+│    ├── base       # django app
+│    ├── config     # django project
+│    ├── db.sqlite3
+│    ├── manage.py
+│    ├── media      # upload file directory
+│    ├── secrets    # django secrets no upload git
+│    └── templates
+├── scrips
+└── setup.sh
+```
 
-開発中
