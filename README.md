@@ -16,6 +16,8 @@ git clone https://github.com/Hirakawa0123/Sumomo_Logic.git
 ```
 
 ## Setup
+※現在エラーが発生してセットアップできない状態です。
+
 ※Pythonがインストール済みであることを前提に記載しております。
 
 
