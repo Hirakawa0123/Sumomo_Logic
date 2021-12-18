@@ -19,7 +19,7 @@ from base.models import Pdf
 class UploadView(FormView):
     form_class = TextForm
     template_name = "pages/upload.html"
-    success_url = '/'
+    success_url = reverse_lazy('list')
 
     def form_valid(self, form):
         form.save()
@@ -48,9 +48,10 @@ class PdfUpdateView(UpdateView):
 
 class FileFieldFormView(FormView):
     form_class = FileFieldForm
-    template_name = 'pages/upload_files.html'  # Replace with your template.
-    success_url = reverse_lazy('list')  # Replace with your URL or reverse().
+    template_name = 'pages/upload_files.html'
+    success_url = reverse_lazy('list')
     save_path = 'media/documents/'
+    validate_extension = ["txt", "pdf", "csv", "json", "html", "py"]
 
     def post(self, request, *args, **kwargs):
         form_class = self.get_form_class()
@@ -59,11 +60,14 @@ class FileFieldFormView(FormView):
 
         if form.is_valid():
             for file in files:
-                self.handle_uploaded_file(file)
                 extension = os.path.basename(file.name).split('.', 1)[1]
-                if extension == "pdf":
-                    self.orc_pdf(file)
-                self.save_db(file)
+                if extension in self.validate_extension:
+                    self.handle_uploaded_file(file)
+                    if extension == "pdf":
+                        self.orc_pdf(file)
+                    self.save_db(file, extension)
+                else:
+                    pass
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
@@ -83,10 +87,20 @@ class FileFieldFormView(FormView):
         with open(self.save_path + file_name + ".txt","w") as f:
             f.write(text)
     
-    def save_db(self,file):
-        file_name =  os.path.basename(file.name).split('.', 1)[0]
-        with open(self.save_path + file_name + ".txt","r") as f:
-            text = f.read()
-            myobject = Pdf(file_name=file.name,content=text)
-            myobject.save()
-    
+    def save_db(self,file,extension):
+
+        if extension == "pdf":
+            file_name =  os.path.basename(file.name).split('.', 1)[0]
+            with open(self.save_path + file_name + ".txt","r") as f:
+                text = f.read()
+                myobject = Pdf(file_name=file.name,content=text)
+                myobject.save()
+        
+        elif extension in self.validate_extension:
+            with open(self.save_path + file.name, "r") as f:
+                text = f.read()
+                myobject = Pdf(file_name=file.name,content=text)
+                myobject.save()
+        
+        else:
+            pass
