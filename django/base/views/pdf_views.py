@@ -11,10 +11,10 @@ import re
 import sys
 import os
 
-from base.forms import TextForm,UploadFileForm
-from base.models import Pdf
-
 from tika import parser
+
+from base.forms import TextForm,FileFieldForm
+from base.models import Pdf
 
 class UploadView(FormView):
     form_class = TextForm
@@ -46,51 +46,38 @@ class PdfUpdateView(UpdateView):
     form_class = TextForm
 
 
-# ------------------------------------------------------------------
-def file_upload(request):
-    if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILES)
+class FileFieldFormView(FormView):
+    form_class = FileFieldForm
+    template_name = 'pages/upload_files.html'  # Replace with your template.
+    success_url = reverse_lazy('list')  # Replace with your URL or reverse().
+
+    def post(self, request, *args, **kwargs):
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        files = request.FILES.getlist('file_field')
+
         if form.is_valid():
-            sys.stderr.write("*** file_upload *** aaa ***\n")
-            handle_uploaded_file(request.FILES['file'])
-            Orc(request.FILES['file'])
-            file_obj = request.FILES['file']
-            sys.stderr.write(file_obj.name + "\n")
-            return HttpResponseRedirect('/')
-            # return HttpResponseRedirect('/success/url/')
-    else:
-        form = UploadFileForm()
-    return render(request, 'pages/upload_files.html', {'form': form})
-#
-#
-# ------------------------------------------------------------------
-def handle_uploaded_file(file_obj):
-    sys.stderr.write("*** handle_uploaded_file *** aaa ***\n")
-    sys.stderr.write(file_obj.name + "\n")
-    file_path = 'media/documents/' + file_obj.name 
-    sys.stderr.write(file_path + "\n")
-    with open(file_path, 'wb+') as destination:
-        for chunk in file_obj.chunks():
-            sys.stderr.write("*** handle_uploaded_file *** ccc ***\n")
-            destination.write(chunk)
-            sys.stderr.write("*** handle_uploaded_file *** eee ***\n")
-#
-# ------------------------------------------------------------------
-def success(request):
-    str_out = "Success!<p />"
-    str_out += "成功<p />"
-    return HttpResponse(str_out)
-# ------------------------------------------------------------------
+            for file in files:
+                self.handle_uploaded_file(file)
+                extension = os.path.basename(file.name).split('.', 1)[1]
+                if extension == "pdf":
+                    self.orc_pdf(file)
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
 
-def Orc(file_obj):
-    file_path = 'media/documents/' + file_obj.name
-    file_name =  os.path.basename(file_obj.name).split('.', 1)[0]
-    extension = os.path.basename(file_obj.name).split('.', 1)[1]
-    file_data = parser.from_file(file_path)
-    text = file_data["content"]
-
-    with open('media/documents/' + file_name + ".txt","w") as f:
-        f.write(text)
+    def handle_uploaded_file(self,file):
+        file_path = 'media/documents/' + file.name
+        with open(file_path, 'wb+') as destination:
+            for chunk in file.chunks():
+                destination.write(chunk)
     
-    os.remove('media/documents/' + file_name + "." + extension)
+    def orc_pdf(self,file):
+        file_path = 'media/documents/' + file.name
+        file_name =  os.path.basename(file.name).split('.', 1)[0]
+        file_data = parser.from_file(file_path)
+        text = file_data["content"]
+
+        with open('media/documents/' + file_name + ".txt","w") as f:
+            f.write(text)
     

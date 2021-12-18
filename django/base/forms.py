@@ -35,5 +35,11 @@ class TestForm(forms.Form):
         post = Post(title=data['title'], comment=data['comment'])
         post.save()
 
-class UploadFileForm(forms.Form):
-    file = forms.FileField()
+class FileFieldForm(forms.Form):
+    file_field = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
+
+    # def save(self):
+    #     # save data using the self.cleaned_data dictionary
+    #     data = self.cleaned_data
+    #     post = Pdf(title=data['f'], comment=data['comment'])
+    #     post.save()
