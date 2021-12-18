@@ -50,6 +50,7 @@ class FileFieldFormView(FormView):
     form_class = FileFieldForm
     template_name = 'pages/upload_files.html'  # Replace with your template.
     success_url = reverse_lazy('list')  # Replace with your URL or reverse().
+    save_path = 'media/documents/'
 
     def post(self, request, *args, **kwargs):
         form_class = self.get_form_class()
@@ -62,22 +63,30 @@ class FileFieldFormView(FormView):
                 extension = os.path.basename(file.name).split('.', 1)[1]
                 if extension == "pdf":
                     self.orc_pdf(file)
+                self.save_db(file)
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
 
     def handle_uploaded_file(self,file):
-        file_path = 'media/documents/' + file.name
+        file_path = self.save_path + file.name
         with open(file_path, 'wb+') as destination:
             for chunk in file.chunks():
                 destination.write(chunk)
     
     def orc_pdf(self,file):
-        file_path = 'media/documents/' + file.name
+        file_path = self.save_path + file.name
         file_name =  os.path.basename(file.name).split('.', 1)[0]
         file_data = parser.from_file(file_path)
         text = file_data["content"]
 
-        with open('media/documents/' + file_name + ".txt","w") as f:
+        with open(self.save_path + file_name + ".txt","w") as f:
             f.write(text)
+    
+    def save_db(self,file):
+        file_name =  os.path.basename(file.name).split('.', 1)[0]
+        with open(self.save_path + file_name + ".txt","r") as f:
+            text = f.read()
+            myobject = Pdf(file_name=file.name,content=text)
+            myobject.save()
     
