@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+<div class="d-flex justify-content-around" style="padding:100px 0">
+    <div>
+    <h1>{{object.search_name}}</h1>
+        <label class="control-label">
+            <a>{{object.file_path}}</a>
+            <div>
+                <textarea readonly rows="15" cols="100">{{object.search_query}}</textarea>
+            </div>
+        </label>
+      <div class="d-flex justify-content-end" style="padding:20px 0">
+        <a class="btn btn-info" href="{% url 'search_delete' object.pk %}" role="button">削除</a>
+        <a class="btn btn-info" href="{% url 'search_update' object.pk %}" role="button">更新</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -21,9 +21,15 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("",views.PdfListView.as_view(),name="list"),
     path("upload/",views.UploadView.as_view(),name="upload"),
-    path('items/<int:pk>/',views.PdfDetailView.as_view()),
+    path('items/<int:pk>/',views.PdfDetailView.as_view(),name="detail"),
     path('items/<int:pk>/delete/',views.PdfDeleteView.as_view(),name="delete"),
     path('items/<int:pk>/update/',views.PdfUpdateView.as_view(),name="update"),
     path('file_upload/', views.FileFieldFormView.as_view(), name='file_upload'),
-    # path('success/url/',views.success),
+
+    # query
+    path('search/', views.SearchQueryListView.as_view(), name='search_list'),
+    path('search/form/', views.SearchQueryUploadView.as_view(), name='search_form'),
+    path('search/<int:pk>/',views.SearchQueryDetailView.as_view(),name="search_detail"),
+    path('search/<int:pk>/delete/',views.SearchQueryDeleteView.as_view(),name="search_delete"),
+    path('search/<int:pk>/update/',views.SearchQueryUpdateView.as_view(),name="search_update"),
 ]
