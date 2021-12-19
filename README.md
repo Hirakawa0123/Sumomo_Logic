@@ -2,7 +2,7 @@
 
 Sumomo_Logicは、可視化しづらいファイル形式のデータを可視化を目指したWebサービスです。
 (開発中)
-## 動作確認
+## バージョン
 Python==3.8.2
 Django==4.0
 django-environ==0.8.1
@@ -29,6 +29,7 @@ git clone https://github.com/Hirakawa0123/Sumomo_Logic.git
 │    ├── media      # upload file directory
 │    ├── secrets    # django secrets no upload git
 │    └── templates
+├── sample_files
 ├── scrips
 └── setup.sh
 ```
